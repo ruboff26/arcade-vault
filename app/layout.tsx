@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Footer } from "@/components/footer";
+import { Nav } from "@/components/nav";
+import { SessionProvider } from "@/components/session-provider";
 import "./globals.css";
 
 const pressStart = localFont({
@@ -26,7 +29,7 @@ const courierPrime = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Arcade Vault",
+  title: "Arcade Vault · Portal Retro",
   description: "Plataforma de juegos online donde compites por la puntuación más alta",
 };
 
@@ -39,7 +42,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <div className="av-bg" />
         <div className="av-noise" />
-        <div className="av-root">{children}</div>
+        <div className="av-root">
+          <SessionProvider>
+            <Nav />
+            <main className="av-main">{children}</main>
+            <Footer />
+          </SessionProvider>
+        </div>
       </body>
     </html>
   );
